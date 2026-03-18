@@ -1,18 +1,24 @@
 import './App.css'
+import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import BemVindo from './components/BemVindo'
-import SecaoHabitos from './components/SecaoHabitos'
-import HabitList from './components/HabitList'
+import PaginaInicio from './pages/PaginaInicio'
+import PaginaHabitos from './pages/PaginaHabitos'
+import PaginaDetalhes from './pages/PaginaDetalhes'
+import PaginaNaoEncontrada from './pages/PaginaNaoEncontrada'
 
 function App() {
   return (
     <div>
       <Header />
-      <BemVindo nomeUsuario="Turma ITEAM" />
-      <SecaoHabitos titulo="Meus Habitos">
-        <HabitList />
-      </SecaoHabitos>
+
+      <Routes>
+        <Route path="/" element={<PaginaInicio />} />
+        <Route path="/habitos" element={<PaginaHabitos />} />
+        <Route path="/habito/:id" element={<PaginaDetalhes />} />
+        <Route path="*" element={<PaginaNaoEncontrada />} />
+      </Routes>
+
       <Footer />
     </div>
   )

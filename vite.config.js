@@ -2,10 +2,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: '/my-daily-habits/',
+export default defineConfig(({ command }) => ({
+  base: command === 'serve' ? '/' : '/my-daily-habits/',
   build: {
     outDir: 'docs',
   },
   plugins: [react()],
-})
+}))

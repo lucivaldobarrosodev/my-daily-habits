@@ -1,34 +1,48 @@
+import { Link } from 'react-router-dom'
+
 function HabitCard({
+  id,
   nome,
-  descricao = '',
-  categoria = 'Geral',
+  descricao,
   meta,
   ativo = true,
   diasFeitos = 0,
+  categoria = 'Geral',
   onRemover,
 }) {
   const metaAtingida = diasFeitos >= meta
 
-  const mensagemMeta = metaAtingida
-    ? 'Meta da semana atingida!'
-    : `${diasFeitos} de ${meta} dias concluidos`
-
   return (
     <div className="habit-card">
-      <h3>{nome}</h3>
-      {descricao && <p className="habit-descricao">{descricao}</p>}
-      <p className="habit-meta">{mensagemMeta}</p>
-      <p className="habit-categoria">Categoria: {categoria}</p>
-      <span className={`habit-status ${ativo ? 'ativo' : 'pausado'}`}>
-        {ativo ? 'Ativo' : 'Pausado'}
-      </span>
-      {metaAtingida && <p className="habit-conquista">Parabens! Meta da semana atingida!</p>}
+      <div className="habit-card-header">
+        <h3>{nome}</h3>
+        <span style={{ color: ativo ? '#16a34a' : '#9ca3af' }}>
+          {ativo ? '✅ Ativo' : '⏸️ Pausado'}
+        </span>
+      </div>
 
-      {onRemover && (
-        <button type="button" onClick={onRemover}>
-          Remover
-        </button>
-      )}
+      <p>{descricao}</p>
+      <small>Categoria: {categoria}</small>
+
+      <p>
+        {metaAtingida
+          ? '🏆 Meta da semana atingida!'
+          : `${diasFeitos} de ${meta} dias concluídos`}
+      </p>
+
+      {metaAtingida && <p>⭐ Parabéns! Você manteve a sequência essa semana!</p>}
+
+      <div className="habit-card-acoes">
+        <Link to={`/habito/${id}`} className="btn-detalhes">
+          Ver detalhes
+        </Link>
+
+        {onRemover && (
+          <button onClick={onRemover} className="btn-remover-card">
+            Remover
+          </button>
+        )}
+      </div>
     </div>
   )
 }
